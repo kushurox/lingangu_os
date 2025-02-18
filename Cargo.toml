@@ -1,0 +1,13 @@
+[package]
+name = "lingangu_os"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[[bin]]
+name = 'lingangu_os'
+path = 'src/main.rs'
+doctest = false
+bench = false
+test = false
