@@ -15,5 +15,11 @@ cringe:
     la t0, kmain
 
     csrw mepc, t0
+    csrr t1, mhartid
 
-    tail kmain
+    beq t1, x0, A
+
+    B:
+        tail do_nothing
+    A:
+        tail kmain

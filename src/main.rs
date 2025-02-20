@@ -3,9 +3,11 @@
 
 mod utils;
 
-use utils::{get_hartid, print, sadge_delay, UART};
+use utils::{delay, get_hartid, get_time, print, print_num, sadge_delay, UART};
 
-use core::panic::PanicInfo;
+use core::{panic::PanicInfo, sync::atomic::{AtomicU64, Ordering}};
+
+static CORE_COUNT: AtomicU64 = AtomicU64::new(0);
 
 
 #[panic_handler]
@@ -17,15 +19,14 @@ fn oh_no(_info: &PanicInfo) -> !{
 
 #[unsafe(link_section = ".entry")]
 #[unsafe(no_mangle)]
-extern "C" fn kmain() -> !{
+extern "C" fn kmain() -> ! {
+    print("Core 0\n");
+    loop {print("Doing sth\n"); delay(100000);};
+}
 
-    let id = get_hartid();
-    if get_hartid() == 1 {
-        sadge_delay();
-        print("\nCore 1 exists!");
-    } else {
-        print("Other Core exists!");
-    }
-
-    loop {}
+#[unsafe(no_mangle)]
+extern "C" fn do_nothing() -> ! {
+    delay(100000);
+    print("Core 1\n");
+    loop {};
 }
