@@ -1,9 +1,7 @@
-INPUT(src/boot.o)
-
+INPUT(boot.o)
 MEMORY {
     DRAM : ORIGIN = 0x80000000, LENGTH = 512K
 }
-
 SECTIONS {
     /* . = 0x80000000; */
     .text : ALIGN(4K){

@@ -2,3 +2,5 @@
 target/
 src/boot.o
 Cargo.lock
+boot.o
+kernel.elf
